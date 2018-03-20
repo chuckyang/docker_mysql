@@ -1,0 +1,50 @@
+[client]
+port            = 3306
+user = root
+#password=6tfc^YHN
+socket          = /data/mysql3306/tmp/mysql3306.sock
+[mysqld]
+port            = 3306
+pid-file        = /data/mysql3306/tmp/db.pid
+socket          = /data/mysql3306/tmp/mysql3306.sock
+datadir         = /data/mysql3306/data
+basedir         =/product/mysql
+tmpdir = /data/mysql3306/tmp
+#innodb_use_sys_malloc =0
+#skip-locking
+log-error = /data/mysql3306/log/db.err
+user = root
+explicit_defaults_for_timestamp=true
+long_query_time = 1
+key_buffer_size = 256M
+max_allowed_packet = 20M
+table_open_cache = 512
+sort_buffer_size = 2M
+read_buffer_size = 2M
+myisam_sort_buffer_size = 64M
+thread_cache_size = 32
+query_cache_size = 32M
+#thread_concurrency = 8
+character-set-server=utf8
+max_connections=2000
+max_connect_errors=2000
+innodb_flush_log_at_trx_commit=0
+sync_binlog=0
+
+#GTID:
+server_id=10000              #服务器id
+#gtid_mode=ON                    #开启gtid模式
+#enforce_gtid_consistency=on     #强制gtid一致性，开启后对于特定create table不被支持
+#read_only = ON                 #只读模式
+#binlog
+log_bin=/data/mysql3306/log/master-binlog
+log_bin_index =/data/mysql3306/log/master-binlog.index
+#log-slave-updates=1
+binlog_format=row            #强烈建议，其他格式可能造成数据不一致
+
+
+#relay log
+#relay_log  = /data/mysql3306/log/relay-bin
+#relay_log_index = /data/mysql3306/log/relay-bin.index
+#relay_log_info_file = /data/mysql3306/log/relay-bin.info
+#skip_slave_start=1
